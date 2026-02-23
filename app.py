@@ -35,6 +35,10 @@ def generate_summary(tag):
 
     return summaries.get(tag, "A valuable community contribution.")
 
+@app.route("/")
+def index():
+    return "EchoCall Archive is live! Call your AT number to test voice functionality."
+
 @app.route("/voice", methods=["POST"])
 def voice():
     response = """<?xml version="1.0" encoding="UTF-8"?>
