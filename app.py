@@ -2,6 +2,7 @@ from flask import Flask, request, Response
 import sqlite3
 from datetime import datetime
 import africastalking
+import os
 
 app = Flask(__name__)
 
@@ -90,8 +91,8 @@ def tag_menu():
     return Response(response, mimetype="text/xml")
 
 # Initialize AT
-username = "sandbox"  # change later
-api_key = "YOUR_API_KEY"
+username = os.getenv("AT_USERNAME")
+api_key = os.getenv("AT_API_KEY")
 
 africastalking.initialize(username, api_key)
 sms = africastalking.SMS
@@ -140,4 +141,5 @@ def save_recording():
     return Response(response, mimetype="text/xml")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
